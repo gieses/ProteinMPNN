@@ -15,3 +15,4 @@ dependencies:
   - pip
   - pip:
       - -e .
+      #- git+https://github.com/gieses/ProteinMPNN.git

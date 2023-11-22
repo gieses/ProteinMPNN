@@ -26,3 +26,6 @@ rm_env:				## remove conda env
 
 rm_yml:				## remove environment.yml
 	rm -f environment.yml
+
+pip:
+	pip install -e .

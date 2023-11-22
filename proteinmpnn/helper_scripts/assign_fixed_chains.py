@@ -1,6 +1,13 @@
 import argparse
 
-def main(args):
+def main():
+    argparser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    argparser.add_argument("--input_path", type=str, help="Path to the parsed PDBs")
+    argparser.add_argument("--output_path", type=str, help="Path to the output dictionary")
+    argparser.add_argument("--chain_list", type=str, default='', help="List of the chains that need to be designed")
+
+    args = argparser.parse_args()
+
     import json
 
     with open(args.input_path, 'r') as json_file:
@@ -26,13 +33,7 @@ def main(args):
 
 
 if __name__ == "__main__":
-    argparser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    argparser.add_argument("--input_path", type=str, help="Path to the parsed PDBs")
-    argparser.add_argument("--output_path", type=str, help="Path to the output dictionary")
-    argparser.add_argument("--chain_list", type=str, default='', help="List of the chains that need to be designed")    
-
-    args = argparser.parse_args()
-    main(args) 
+    main()
 
 # Output looks like this:
 # {"5TTA": [["A"], ["B"]], "3LIS": [["A"], ["B"]]}

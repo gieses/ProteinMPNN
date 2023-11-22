@@ -18,6 +18,7 @@ make yml && make env
 ### usage
 ```bash
 proteinmpnn --help
+proteinmpnn --path_to_fasta examples/outputs/example_3_outputs/seqs/3HTN.fa --pdb_path examples/inputs/PDB_complexes/pdbs/3HTN.pdb --pdb_path_chains "A B" --out_folder examples/cli_proteinmpnn --num_seq_per_target 5 --sampling_temp "0.1" --score_only 1 --seed 13 --batch_size 1
 ```
 ---
 

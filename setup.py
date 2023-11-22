@@ -4,11 +4,15 @@ setup(
     name='proteinmpnn',
     version='1.0.1',
     packages=find_packages(),
+    package_dir={'proteinmpnn': 'proteinmpnn'},
+    include_package_data=True,
     install_requires=[
         # List your project dependencies here
     ],
     entry_points={'console_scripts': [
         "proteinmpnn=proteinmpnn.protein_mpnn_run:main",
+        "proteinmpnn-parse=proteinmpnn.helper_scripts.parse_multiple_chains:main",
+        "proteinmpnn-assign=proteinmpnn.helper_scripts.assign_fixed_chains:main",
     ],},
     # Metadata
     author='Justas Dauparas',

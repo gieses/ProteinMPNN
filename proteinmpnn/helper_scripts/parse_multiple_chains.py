@@ -1,6 +1,13 @@
 import argparse
 
-def main(args):
+def main():
+    argparser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    argparser.add_argument("--input_path", type=str, help="Path to a folder with pdb files, e.g. /home/my_pdbs/")
+    argparser.add_argument("--output_path", type=str, help="Path where to save .jsonl dictionary of parsed pdbs")
+    argparser.add_argument("--ca_only", action="store_true", default=False, help="parse a backbone-only structure (default: false)")
+
+    args = argparser.parse_args()
 
     import numpy as np
     import os, time, gzip, json
@@ -153,11 +160,4 @@ def main(args):
            
 
 if __name__ == "__main__":
-    argparser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
-    argparser.add_argument("--input_path", type=str, help="Path to a folder with pdb files, e.g. /home/my_pdbs/")
-    argparser.add_argument("--output_path", type=str, help="Path where to save .jsonl dictionary of parsed pdbs")
-    argparser.add_argument("--ca_only", action="store_true", default=False, help="parse a backbone-only structure (default: false)")
-
-    args = argparser.parse_args()
-    main(args)
+    main()
