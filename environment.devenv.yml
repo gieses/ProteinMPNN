@@ -12,6 +12,7 @@ dependencies:
   - torchvision
   - torchaudio
   - cudatoolkit #[linux]
+  - snakemake
   - pip
   - pip:
       - -e .
