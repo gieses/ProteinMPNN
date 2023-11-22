@@ -1,0 +1,17 @@
+name: proteinmpnn
+channels:
+  - conda-forge
+  - bioconda
+  - pytorch
+  - nodefaults
+
+dependencies:
+  - python
+  - ipython
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cudatoolkit #[linux]
+  - pip
+  - pip:
+      - -e .

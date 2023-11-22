@@ -2,6 +2,26 @@
 ![ProteinMPNN](https://docs.google.com/drawings/d/e/2PACX-1vTtnMBDOq8TpHIctUfGN8Vl32x5ISNcPKlxjcQJF2q70PlaH2uFlj2Ac4s3khnZqG1YxppdMr0iTyk-/pub?w=889&h=358)
 Read [ProteinMPNN paper](https://www.biorxiv.org/content/10.1101/2022.06.03.494563v1).
 
+---
+## This fork
+This fork is a little convenience wrapper around using proteinmpnn.
+
+### installation
+```bash
+#install
+git clone https://github.com/gieses/ProteinMPNN
+# optional: install mamba and devenv
+make conda
+make yml && make env
+```
+
+### usage
+```bash
+proteinmpnn --help
+```
+---
+
+
 To run ProteinMPNN clone this github repo and install Python>=3.0, PyTorch, Numpy. 
 
 Full protein backbone models: `vanilla_model_weights/v_48_002.pt, v_48_010.pt, v_48_020.pt, v_48_030.pt`, `soluble_model_weights/v_48_010.pt, v_48_020.pt`.

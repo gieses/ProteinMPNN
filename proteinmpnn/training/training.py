@@ -1,23 +1,15 @@
 import argparse
-import os.path
+
 
 def main(args):
-    import json, time, os, sys, glob
-    import shutil
-    import warnings
+    import time
     import numpy as np
     import torch
-    from torch import optim
     from torch.utils.data import DataLoader
     import queue
-    import copy
-    import torch.nn as nn
-    import torch.nn.functional as F
-    import random
     import os.path
-    import subprocess
-    from concurrent.futures import ProcessPoolExecutor    
-    from utils import worker_init_fn, get_pdbs, loader_pdb, build_training_clusters, PDB_dataset, StructureDataset, StructureLoader
+    from concurrent.futures import ProcessPoolExecutor
+    from proteinmpnn.training.utils import worker_init_fn, get_pdbs, loader_pdb, build_training_clusters, PDB_dataset, StructureDataset, StructureLoader
     from model_utils import featurize, loss_smoothed, loss_nll, get_std_opt, ProteinMPNN
 
     scaler = torch.cuda.amp.GradScaler()
