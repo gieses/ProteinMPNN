@@ -8,10 +8,13 @@ channels:
 dependencies:
   - python
   - ipython
-  - pytorch
+  - conda-forge::pytorch # [not osx]
+  - conda-forge::pytorch-gpu # [not osx]
+  - pytorch::pytorch # [osx]
   - torchvision
   - torchaudio
-  - cudatoolkit #[linux]
+  - cudatoolkit-dev #[linux]
+  - cudatoolkit>=11.6 #[linux]
   - snakemake
   - pip
   - pip:
