@@ -181,10 +181,12 @@ class ProteinMPNNWorkflow:
         if self.pdb_chains:
             command.extend(["--pdb_path_chains", self.chain_string])
 
-        if self.path_to_model_weights:
-            command.extend(["--path_to_model_weights", str(self.path_to_model_weights)])
+        if self.use_antibody_model:
             command.extend(["--use_antibody_model"])
             command.extend(["--model_name", "abmpnn"])
+
+        if self.path_to_model_weights:
+            command.extend(["--path_to_model_weights", str(self.path_to_model_weights)])
 
         if score:
             # requires a fasta but no parsing

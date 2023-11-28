@@ -106,7 +106,7 @@ def main():
         model_folder_path = Path(args.path_to_model_weights)
     else:
         from importlib.resources import files
-        file_path = files("proteinmpnn.assets")
+        file_path = files("proteinmpnn") / "assets"
 
         if args.ca_only:
             print("Using CA-ProteinMPNN!")
@@ -121,7 +121,7 @@ def main():
 
             elif args.use_antibody_model:
                 print("Using AntibodyMPNN!")
-                model_folder_path = file_path / 'antibody_model_weights'
+                model_folder_path = file_path / 'antibody_weights'
             else:
                 model_folder_path = file_path / 'vanilla_model_weights'
 
