@@ -259,8 +259,13 @@ class ProteinMPNNWorkflow:
             print("Running ProteinMPNN...")
         self._call_proteinmpnn()
 
-    def get_sequences(self, pdb: str):
-        return read_fasta_sequences(str(self.sequence_folder / f"{pdb}.fa"))
+    def get_sequences(self, pdb_stem: str):
+        """Get the sampled sequences from a specific PDB."""
+        return read_fasta_sequences(self.get_fasta_location(pdb_stem)
+
+    def get_fasta_location(self, pdb_stem: str):
+        """Get the location of the sampled sequences, depending on the PDB that was used."""
+        return str(self.sequence_folder / f"{pdb_stem}.fa")
 
 
 def get_pssm_example():
