@@ -261,7 +261,7 @@ class ProteinMPNNWorkflow:
 
     def get_sequences(self, pdb_stem: str):
         """Get the sampled sequences from a specific PDB."""
-        return read_fasta_sequences(self.get_fasta_location(pdb_stem)
+        return read_fasta_sequences(self.get_fasta_location(pdb_stem))
 
     def get_fasta_location(self, pdb_stem: str):
         """Get the location of the sampled sequences, depending on the PDB that was used."""
