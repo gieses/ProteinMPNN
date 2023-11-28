@@ -13,6 +13,8 @@ def args_parse():
                            help="ProteinMPNN model name: v_48_002, v_48_010, v_48_020, v_48_030; v_48_010=version with 48 edges 0.10A noise")
     argparser.add_argument("--use_soluble_model", action="store_true", default=False,
                            help="Flag to load ProteinMPNN weights trained on soluble proteins only.")
+    argparser.add_argument("--use_antibody_model", action="store_true", default=False,
+                           help="Flag to load AbMPNN weights fine-tuned on antibodies.")
 
     argparser.add_argument("--seed", type=int, default=0, help="If set to 0 then a random seed will be picked;")
 
@@ -79,6 +81,7 @@ def main():
 
     import json, time, os, sys
     import numpy as np
+    from pathlib import Path
     import torch
     import copy
     import random
@@ -100,9 +103,7 @@ def main():
     num_layers = 3
 
     if args.path_to_model_weights:
-        model_folder_path = args.path_to_model_weights
-        if model_folder_path[-1] != '/':
-            model_folder_path = model_folder_path + '/'
+        model_folder_path = Path(args.path_to_model_weights)
     else:
         from importlib.resources import files
         file_path = files("proteinmpnn.assets")
@@ -117,10 +118,14 @@ def main():
             if args.use_soluble_model:
                 print("Using ProteinMPNN trained on soluble proteins only!")
                 model_folder_path = file_path / 'soluble_model_weights'
+
+            elif args.use_antibody_model:
+                print("Using AntibodyMPNN!")
+                model_folder_path = file_path / 'antibody_model_weights'
             else:
                 model_folder_path = file_path / 'vanilla_model_weights'
 
-    checkpoint_path = model_folder_path  / f'{args.model_name}.pt'
+    checkpoint_path = model_folder_path / f'{args.model_name}.pt'
     folder_for_outputs = args.out_folder
 
     NUM_BATCHES = args.num_seq_per_target // args.batch_size
@@ -509,13 +514,15 @@ def main():
                                 seq_rec_print = np.format_float_positional(
                                     np.float32(seq_recovery_rate.detach().cpu().numpy()), unique=False, precision=4)
                                 sample_number = j * BATCH_COPIES + b_ix + 1
+                                sample_number_str = str(sample_number).zfill(4)
                                 f.write(
-                                    '>T={}, sample={}, score={}, global_score={}, seq_recovery={}\n{}\n'.format(temp,
-                                                                                                                sample_number,
-                                                                                                                score_print,
-                                                                                                                global_score_print,
-                                                                                                                seq_rec_print,
-                                                                                                                seq))  # write generated sequence
+                                    '>seq_{}, T={}, sample={}, score={}, global_score={}, seq_recovery={}\n{}\n'.format(
+                                        sample_number_str,
+                                        temp, sample_number,
+                                        score_print,
+                                        global_score_print,
+                                        seq_rec_print,
+                                        seq))  # write generated sequence
                 if args.save_score:
                     np.savez(score_file, score=np.array(score_list, np.float32),
                              global_score=np.array(global_score_list, np.float32))

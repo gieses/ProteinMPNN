@@ -11,6 +11,7 @@ setup(
     ],
     entry_points={'console_scripts': [
         "proteinmpnn=proteinmpnn.protein_mpnn_run:main",
+        "proteinmpnn-wf=proteinmpnn.proteinmpnn:main",
         "proteinmpnn-parse=proteinmpnn.helper_scripts.parse_multiple_chains:main",
         "proteinmpnn-assign=proteinmpnn.helper_scripts.assign_fixed_chains:main",
         "proteinmpnn-fix-positions=proteinmpnn.helper_scripts.make_fixed_positions_dict:main",

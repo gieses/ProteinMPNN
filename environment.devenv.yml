@@ -16,6 +16,11 @@ dependencies:
   - cudatoolkit-dev #[linux]
   - cudatoolkit>=11.6 #[linux]
   - snakemake
+  - jupyterlab
+  - pandas
+  - matplotlib
+  - seaborn
+  - numpy
   - pip
   - pip:
       - -e .

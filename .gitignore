@@ -6,6 +6,7 @@ __pycache__/
 *.idea
 *DS_Store
 examples/cli_proteinmpnn
+vanilla_proteinmpnn
 # C extensions
 *.so
 environment.yml
