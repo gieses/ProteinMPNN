@@ -26,7 +26,7 @@ def read_fasta_sequences(fasta_file: str) -> list[str]:
     return sequences
 
 
-class ProteinMPNN:
+class ProteinMPNNWorkflow:
     def __init__(self,
                  *,
                  pdb_in: str,
@@ -322,20 +322,20 @@ def create_parser():
 def main():
     args = create_parser()
     print("Running ProteinMPNN...")
-    pmpnn_model = ProteinMPNN(pdb_in=args.pdb_in,
-                              results_dir=args.results_out,
-                              num_seq_per_target=args.num_seq_per_target,
-                              sampling_temp=args.sampling_temp,
-                              score_only=args.score_only,
-                              seed=args.seed,
-                              batch_size=args.batch_size,
-                              pdb_chains=args.pdb_chains,
-                              fix_positions=args.fix_positions,
-                              inverse_fix_positions=args.inverse_fix_positions,
-                              verbose=args.verbose,
-                              path_to_model_weights=args.path_to_model_weights,
-                              use_antibody_model=args.use_antibody_model,
-                              )
+    pmpnn_model = ProteinMPNNWorkflow(pdb_in=args.pdb_in,
+                                      results_dir=args.results_out,
+                                      num_seq_per_target=args.num_seq_per_target,
+                                      sampling_temp=args.sampling_temp,
+                                      score_only=args.score_only,
+                                      seed=args.seed,
+                                      batch_size=args.batch_size,
+                                      pdb_chains=args.pdb_chains,
+                                      fix_positions=args.fix_positions,
+                                      inverse_fix_positions=args.inverse_fix_positions,
+                                      verbose=args.verbose,
+                                      path_to_model_weights=args.path_to_model_weights,
+                                      use_antibody_model=args.use_antibody_model,
+                                      )
     pmpnn_model()
     print(f"Results Dir: {pmpnn_model.results_dir}")
 
