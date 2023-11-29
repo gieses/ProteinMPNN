@@ -11,10 +11,13 @@ def args_parse():
     argparser.add_argument("--path_to_model_weights", type=str, default="", help="Path to model weights folder;")
     argparser.add_argument("--model_name", type=str, default="v_48_020",
                            help="ProteinMPNN model name: v_48_002, v_48_010, v_48_020, v_48_030; v_48_010=version with 48 edges 0.10A noise")
+    # special models
     argparser.add_argument("--use_soluble_model", action="store_true", default=False,
                            help="Flag to load ProteinMPNN weights trained on soluble proteins only.")
     argparser.add_argument("--use_antibody_model", action="store_true", default=False,
                            help="Flag to load AbMPNN weights fine-tuned on antibodies.")
+    argparser.add_argument("--use_thermo_model", action="store_true", default=False,
+                           help="Flag to load ThermoMPNN weights.")
 
     argparser.add_argument("--seed", type=int, default=0, help="If set to 0 then a random seed will be picked;")
 
@@ -79,7 +82,7 @@ def args_parse():
 def main():
     args = args_parse()
 
-    import json, time, os, sys
+    import json, time, sys
     import numpy as np
     from pathlib import Path
     import torch
@@ -118,14 +121,22 @@ def main():
             if args.use_soluble_model:
                 print("Using ProteinMPNN trained on soluble proteins only!")
                 model_folder_path = file_path / 'soluble_model_weights'
+                model_name = f'{args.model_name}.pt'
 
             elif args.use_antibody_model:
                 print("Using AntibodyMPNN!")
                 model_folder_path = file_path / 'antibody_weights'
+                model_name = 'abmpnn.pt'
+
+            elif args.use_thermo_model:
+                print("Using ThermoMPNN!")
+                model_folder_path = file_path / 'thermompnn_weights'
+                model_name = 'thermoMPNN_default.pt'
             else:
                 model_folder_path = file_path / 'vanilla_model_weights'
+                model_name = f'{args.model_name}.pt'
 
-    checkpoint_path = model_folder_path / f'{args.model_name}.pt'
+    checkpoint_path = model_folder_path / model_name
     folder_for_outputs = args.out_folder
 
     NUM_BATCHES = args.num_seq_per_target // args.batch_size
