@@ -42,6 +42,7 @@ class ProteinMPNNWorkflow:
                  verbose: bool = True,
                  path_to_model_weights: str = None,
                  use_antibody_model: bool = False,
+                 use_thermo_model: bool = False,
                  ):
 
         pdb_in = Path(pdb_in)
@@ -69,6 +70,7 @@ class ProteinMPNNWorkflow:
         # model
         self.path_to_model_weights = Path(path_to_model_weights) if path_to_model_weights else None
         self.use_antibody_model = use_antibody_model
+        self.use_thermo_model = use_thermo_model
 
         # proteinmpnn uses these default folders
         self.sequence_folder = self.results_dir / "seqs"
@@ -183,7 +185,9 @@ class ProteinMPNNWorkflow:
 
         if self.use_antibody_model:
             command.extend(["--use_antibody_model"])
-            command.extend(["--model_name", "abmpnn"])
+
+        if self.use_thermo_model:
+            command.extend(["--use_thermo_model"])
 
         if self.path_to_model_weights:
             command.extend(["--path_to_model_weights", str(self.path_to_model_weights)])
@@ -293,6 +297,8 @@ def create_parser():
                              help="Path to model weights (default: None).")
     group_model.add_argument("--use_antibody_model", action="store_true", default=False,
                              help="Use antibody model (default: False).")
+    group_model.add_argument("--use_thermo_model", action="store_true", default=False,
+                             help="Use ThermoMPNN model (default: False).")
     group_model.add_argument("--model_name", type=str, default=None,
                              help="Model name (default: None).")
 
@@ -342,6 +348,7 @@ def main():
                                       verbose=args.verbose,
                                       path_to_model_weights=args.path_to_model_weights,
                                       use_antibody_model=args.use_antibody_model,
+                                      use_thermo_model=args.use_thermo_model,
                                       )
     pmpnn_model()
     print(f"Results Dir: {pmpnn_model.results_dir}")
