@@ -89,7 +89,7 @@ class ProteinMPNNWorkflow:
 
     def score(self, *, sequences: Optional[list[str]] = None, fasta_in: Optional[str] = None):
         """
-        Use ProtienMPNN to score the sequence against the prepared pdb.
+        Use ProteinMPNN to score the sequence against the prepared pdb.
         """
         # use temporary file to score sequences
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -105,7 +105,7 @@ class ProteinMPNNWorkflow:
             elif sequences is not None and fasta_in is None:
                 # directory for temporary files
                 tmpdir = Path(tmpdirname)
-                tmpdir.mkdir(exist_ok=True)
+                tmpdir.mkdir(exist_ok=True, parents=True)
                 seq_file = tmpdir / "seqs.fasta"
 
                 print(f"write sequences to: {tmpdir}")
